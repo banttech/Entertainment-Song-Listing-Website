@@ -1,4 +1,9 @@
-<p align="center"><a href="https://songcl.banttechenergies.com" target="_blank">Symphony</a></p>
+<p align="center">
+<a href="https://songcl.banttechenergies.com" target="_blank" style="font-family: 'Pacifico', cursive; font-size: 50px;>
+    <span style="color:#f5b541;">Sym</span>
+    <span style="color: #698d8f;">phony</span>
+</a>
+</p>
 
 ## About SongCI
 
