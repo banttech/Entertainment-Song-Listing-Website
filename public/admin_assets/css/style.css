@@ -258,7 +258,7 @@ button.close {
     transform: rotate(45deg);
 }
 .tb-cvr h3 {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 800;
     font-size: 24px;
@@ -340,11 +340,11 @@ ul.list-area.clearfix li:last-child {
     padding: 15px;
     font-weight: 700;
     border-radius: 30px 30px 30px 0px;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     border: 1px solid #ccc;
 }
 .form-bg label {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -385,7 +385,7 @@ ul.list-area.clearfix li:last-child {
     height: 55px;
     color: #fff;    border-radius: 30px 30px 30px 0px;
     font-weight: 700;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-size: 15px;
 }
 .input-space button {
@@ -396,7 +396,7 @@ ul.list-area.clearfix li:last-child {
     display: inline-block;
     padding: 0 10px;
     font-size: 15px;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
 }
 .file-upload .file-select:hover{    border-color: #7c1dcf;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
 .file-upload .file-select:hover .file-select-button{background: #7c1dcf;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
@@ -417,7 +417,7 @@ label.reg {
     max-width: 909px;
     margin: 0 auto;
     padding: 40px;
-    border-radius: 40px 40px 40px 0px;
+    border-radius: 5px;
 }
 body.pink-bg {
     background: #7C1DCF;
@@ -491,7 +491,7 @@ a.offer-btn {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -505,7 +505,7 @@ table.table-no-resp tr:nth-child(even) {
     background: #D4FFD7;
 }
 .tb-cvr-new h3 {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 800;
     font-size: 24px;
@@ -518,7 +518,7 @@ button.save-btn {
     border-radius: 25px 25px 25px 0px;
     color: #fff;
     font-weight: 600;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     padding: 15px 20px;
     border: 1px solid #11D11C;
     font-size: 16px;
@@ -549,11 +549,11 @@ button.save-btn {
     background: #FFFFFF;
     border: 1px solid #CFCFCF;
     width: 100%;
-    border-radius: 30px 30px 30px 0px;
+    border-radius: 5px;
     padding: 15px 20px;
     font-size: 16px;
 	outline:none; box-shadow:none;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
 }
 .sld.rd {
     background: #cf0000;
@@ -565,7 +565,7 @@ button.save-btn {
     overflow: hidden; border-collapse:collapse; margin-bottom:30px;
 }
 .table-no-resp td {
-    font-family: 'Sora';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -577,7 +577,7 @@ button.save-btn {
 }
 .table-no-resp th {
 
-    font-family: 'Sora';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 800;
     background: #11D11C;
@@ -609,7 +609,7 @@ border-radius: 30px 0px;
     border-radius: 40px 40px 40px 0px;
 }
 .prc {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 60px;
@@ -617,7 +617,7 @@ border-radius: 30px 0px;
     color: #FFFFFF;
 }
 .current-offer span {
-    font-family: 'Inter';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -672,7 +672,7 @@ ul.v-detail li img {
     width: 24px;
 }
 ul.v-detail li b {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 800;
     font-size: 17px;
@@ -689,7 +689,7 @@ ul.nav.nav-tabs.tb-area.adm li a {
     padding: 15px 25px;
 }
 table.resp td b {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 15px;
@@ -713,7 +713,7 @@ table.resp {
     margin: 0;
     padding: 0;
     width: 100%;
-    border-radius: 33px 33px 33px 0px;
+    border-radius: 5px;
     overflow: hidden;
 }
 
@@ -728,7 +728,7 @@ table.resp tr {
     padding: 0.35em;
 }
 a.green-link-btn {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 15px;
@@ -786,7 +786,7 @@ table.resp tr: {
     background-color: #fff;
 }
 table.resp td {
-    font-family: 'Sora';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -799,7 +799,7 @@ table.resp td {
 
 
 table.resp th {
-    font-family: 'Sora';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 600;
     background: #11D11C;
@@ -860,7 +860,7 @@ table.resp td::before {
     content: attr(data-label);
     position: absolute;
     font-weight: bold;
-    font-family: 'Sora';
+    font-family: 'Roboto';
     color: #ffffff;
     left: 0px;
     text-align: left;
@@ -877,7 +877,7 @@ table.resp td::before {
 }
 
 .table span {
-	font-family: 'Sora';
+	font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -900,7 +900,7 @@ ul.app-menu li img {
     top: 13px;
 }
 ul.dropdown-menu.settings-menu.dropdown-menu-right {
-    border-radius: 20px 20px 20px 0px;
+    border-radius: 5px;
 }
 a.top-btn img {
     width: 18px;
@@ -910,11 +910,11 @@ a.top-btn img {
 }
 a.top-btn {
     background: #11D11C;
-    padding: 10px 15px 10px 35px;
+    padding: 10px 10px 10px 10px;
     display: block;
     color: #fff;
     font-size: 16px;
-    border-radius: 25px 25px 25px 0px;
+    border-radius: 0px;
     position: relative;
     margin: 15px 15px;
 }
@@ -935,9 +935,9 @@ h3.sub-heading {
     top: -34px;
     background: #11d11c;
     color: #fff;
-    border-radius: 30px 30px 30px 0px;
+    border-radius: 5px;
     padding: 6px 20px;
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-size: 16px;
     font-weight: 700;
@@ -945,7 +945,7 @@ h3.sub-heading {
 }
 .white-bx {
     position: relative;
-    border-radius: 30px 30px 30px 0px;
+    border-radius: 5px;
     background: #fff;
 padding: 40px 30px;
     margin-top: 40px;
@@ -960,7 +960,7 @@ a.grey-link {
 
 .input-space{margin-bottom:20px; position:relative;}
 .input-space input[type=text]:focus,.input-space input[type=password]:focus,.input-space input[type=email]:focus {
-	outline:none; border-color:#11D11C; font-family: 'Archivo';
+	outline:none; border-color:#11D11C; font-family: 'Roboto';
 }
 button.cancel-btn {
     background: #cf0000;
@@ -980,7 +980,7 @@ button.cancel-btn:hover {
     width: 100%;
     height: 55px; outline:none; 
     padding: 15px;  font-weight: 700;
-    border-radius: 30px 30px 30px 0px;font-family: 'Archivo';
+    border-radius: 5px;font-family: 'Roboto';
     border: 1px solid #ccc;	
 }
 .input-space select{
@@ -990,7 +990,7 @@ button.cancel-btn:hover {
 	  width: 100%;
     height: 55px; outline:none; 
     padding: 15px;  font-weight: 700;
-    border-radius: 30px 30px 30px 0px;font-family: 'Archivo';
+    border-radius: 5px !important;font-family: 'Roboto';
     border: 1px solid #ccc;	
 }
 .input-space input[type="text"] {
@@ -1003,12 +1003,12 @@ button.btn-area:hover {
 }
 button.btn-area {
     background: #10c81b;cursor: pointer;
-    width: 100%;
+    
     height: 55px;
     color: #fff;
 	transition:ease-in-out 0.5s;
     font-weight: 700;
-	font-family: 'Archivo';
+	font-family: 'Roboto';
 font-style: normal;
 font-weight: 700;
 font-size: 15px;
@@ -1022,7 +1022,7 @@ color: #FFFFFF;
 }
 .input-space label {
     margin-bottom:8px;    display: block;
-	font-family: 'Archivo';
+	font-family: 'Roboto';
 font-style: normal;
 font-weight: 400;
 font-size: 16px;
@@ -1070,7 +1070,7 @@ background: #005104;}
     font-weight: 600;
 }
 .ac-blc span {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 300;
     font-size: 19px;
@@ -1078,7 +1078,7 @@ background: #005104;}
     color: #FFFFFF;
 }
 .ac-blc h4 {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 23px;     margin-top: 0px;
@@ -1086,7 +1086,7 @@ background: #005104;}
     color: #FFFFFF;    margin-bottom: 0px;
 }
 .amt {
-    font-family: 'Archivo';
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 59px;
@@ -7186,7 +7186,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -7299,7 +7299,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -11111,7 +11111,7 @@ button.bg-dark:focus {
 }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: 'Roboto';
 }
 
 .text-justify {
@@ -11475,7 +11475,7 @@ a.app-header__logo img {
           flex: 1 0 auto;
   color: #fff;
   text-align: center;
-  font-family: 'Niconne';
+  font-family: 'Roboto';
   padding: 0 15px;
   font-size: 26px;
   font-weight: 400;
@@ -11500,7 +11500,7 @@ a.app-header__logo img {
 
 .app-sidebar__toggle {
     padding: 12px 15px;
-  font-family: fontAwesome;
+  font-family: 'Roboto';
   color: #fff;
   line-height: 2.4;
   -webkit-transition: background-color 0.3s ease;
@@ -11692,9 +11692,12 @@ a.app-header__logo img {
       background-color: #7C1DCF;
   -webkit-box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
           box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
-  -webkit-transition: left 0.3s ease, width 0.3s ease;
-  -o-transition: left 0.3s ease, width 0.3s ease;
-  transition: left 0.3s ease, width 0.3s ease;
+  -webkit-transition: left 0.3s ease,
+ width 0.3s ease;
+  -o-transition: left 0.3s ease,
+ width 0.3s ease;
+  transition: left 0.3s ease,
+ width 0.3s ease;
 }
 
 .app-sidebar::-webkit-scrollbar {
@@ -11772,9 +11775,12 @@ a.app-header__logo img {
     padding: 13px 15px 14px 45px;
     font-size: 15px;
   border-left: 3px solid transparent;
-  -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
-  -o-transition: border-left-color 0.3s ease, background-color 0.3s ease;
-  transition: border-left-color 0.3s ease, background-color 0.3s ease;
+  -webkit-transition: border-left-color 0.3s ease,
+ background-color 0.3s ease;
+  -o-transition: border-left-color 0.3s ease,
+ background-color 0.3s ease;
+  transition: border-left-color 0.3s ease,
+ background-color 0.3s ease;
   color: #fff;
 }
 

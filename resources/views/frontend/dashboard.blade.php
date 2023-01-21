@@ -120,7 +120,7 @@
         }
 
         .user-dashboard-left-bottom ul li a:hover {
-            color: #ff0000;
+            color: #f5b541;
         }
 
         .user-dashboard-right-bottom-bx-bottom-bx {
@@ -196,7 +196,7 @@
 
         .btn-area {
             padding: 8px 20px;
-            background: #dd5680;
+            background: #f5b541;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -204,7 +204,7 @@
         }
 
         .btn-area:hover {
-            background: #cc295c;
+            background: #f5b541;
         }
 
         .song_search {
@@ -250,11 +250,9 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Sr. No.</th>
                                                         <th>Song Title</th>
                                                         <th>Author</th>
                                                         <th>Posted On</th>
-                                                        <th rowspan="1">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -265,24 +263,29 @@
                                                     @endif
                                                     @foreach ($songs as $song)
                                                         <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $song->title }}</td>
-                                                            <td>{{ $song->author }}</td>
-                                                            <td>{{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}
+                                                            <td>
+                                                                <a href="{{ route('songDetail', $song->slug) }}">{{ $song->title }}
+                                                                </a>
                                                             </td>
-                                                            <td class="action_btns">
-                                                                <a href="{{ route('songDetail', $song->slug) }}"
-                                                                    class="btn btn-primary" data-toggle="tooltip"
-                                                                    data-placement="bottom" title="View Detail"><i
-                                                                        class="fa fa-eye"></i></a>
-
-                                                                {{-- <a class="btn btn-primary" data-toggle="tooltip"
-                                                                    data-placement="bottom" title="Add to playlist">
-                                                                    <i class="fa fa-plus" data-toggle="modal"
-                                                                        data-target="#exampleModalCenter"></i>
-                                                                </a> --}}
-                                                                {{-- <a href="{{ route('songDetail', $song->slug) }}"
-                                                                    class="btn btn-primary">View</a> --}}
+                                                            <?php
+                                                            $author_ids = DB::table('song_has_authors')
+                                                                ->where('song_id', $song->id)
+                                                                ->pluck('author_id');
+                                                            $authors = DB::table('authors')
+                                                                ->whereIn('id', $author_ids)
+                                                                ->get();
+                                                            ?>
+                                                            <td>
+                                                                @foreach ($authors as $key => $author)
+                                                                    <a href="{{ route('authorSongs', $author->slug) }}">
+                                                                        {{ $author->name }}
+                                                                    </a>
+                                                                    @if ($key != count($authors) - 1)
+                                                                        ,
+                                                                    @endif
+                                                                @endforeach
+                                                            </td>
+                                                            <td>{{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}
                                                             </td>
                                                         </tr>
                                                     @endforeach

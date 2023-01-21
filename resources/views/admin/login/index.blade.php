@@ -37,6 +37,21 @@
         });
     </script>
 
+    
+    <style>
+        button.login_btn{
+            width: 170px !important;
+            border-radius: 10px !important;
+        }
+        .input-style{
+            border-radius:5px !important;
+        }
+        .login-btn{
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
 </head>
 
 <body class="pink-bg">
@@ -64,16 +79,16 @@
             @endif
             @csrf
             <div class="input-space">
-                <input type="email" name="email" :value="old('email')" required autofocus placeholder="Email Address" />
+                <input type="email" name="email" :value="old('email')" required autofocus placeholder="Email Address" class="input-style" />
             </div>
 
 
             <div class="input-space">
-                <input type="password" name="password" required autocomplete="current-password" placeholder="Password" />
+                <input type="password" name="password" required autocomplete="current-password" placeholder="Password" class="input-style"/>
             </div>
 
-            <div class="input-space mb-0">
-                <button>Login</button>
+            <div class="input-space mb-0 login-btn">
+                <button class="login_btn">Login</button>
             </div>
         </form>
     </div>

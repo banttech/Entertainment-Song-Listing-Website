@@ -23,9 +23,6 @@ Route::get('/playlist/edit/{songId}', [FrontendController::class, 'editPlaylist'
 Route::post('/playlist/update/{playListId}', [FrontendController::class, 'updatePlaylist'])->name('updatePlaylist');
 Route::delete('/playlist/delete/{songId}', [FrontendController::class, 'deletePlaylist'])->name('deletePlaylist');
 
-
-
-
 Route::post('/update-profile', [FrontendController::class, 'updateProfile'])->name('update-profile');
 // add to playlist
 Route::post('/addToPlaylist/{songId}', [FrontendController::class, 'addToPlaylist'])->name('addToPlaylist');
@@ -35,6 +32,10 @@ Route::get('/login', [FrontendController::class, 'login'])->name('login');
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
 Route::get('/logout', [FrontendController::class, 'logout'])->name('user.logout');
 Route::get('/song/{slug}', [FrontendController::class, 'songDetail'])->name('songDetail');
+Route::post('/updateSongSetting', [FrontendController::class, 'updateSongSetting'])->name('updateSongSetting');
+Route::get('/author/{slug}', [FrontendController::class, 'authorSongs'])->name('authorSongs');
+Route::get('/category/{slug}', [FrontendController::class, 'categorySongs'])->name('categorySongs');
+Route::get('/newSongDetail/{slug}', [FrontendController::class, 'newSongDetail'])->name('newSongDetail');
 
 
 Route::post('/signin', [FrontendController::class, 'signin'])->name('user.signin');
@@ -47,4 +48,7 @@ Route::post('/resetPasswordMail', [FrontendController::class, 'resetPasswordMail
 
 Route::post('/getMakes', [FrontendController::class, 'getMakes'])->name('getMakes');
 Route::post('/getModels', [FrontendController::class, 'getModels'])->name('getModels');
-//make route for ajax call 
+
+Route::post('/load-more-songs', [FrontendController::class, 'loadMoreSongs'])->name('loadMoreSongs');
+Route::post('/load-more-category-songs/{slug}', [FrontendController::class, 'loadMoreCategorySongs'])->name('loadMoreCategorySongs');
+Route::post('/load-more-author-songs/{slug}', [FrontendController::class, 'loadMoreAuthorSongs'])->name('loadMoreAuthorSongs');

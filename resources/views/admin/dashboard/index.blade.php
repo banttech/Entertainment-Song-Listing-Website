@@ -6,6 +6,10 @@
         text-align: center;
         font-size: 20px;
     }
+    button.search_btn{
+        width: 170px !important;
+        border-radius: 10px !important;
+    }
 </style>
 <div class="app-title">
     <div>
@@ -40,14 +44,13 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn-area">Search</button>
+    <button type="submit" class="btn-area search_btn">Search</button>
 </form>
 <br>
 <table class="resp">
 
     <thead>
         <tr>
-            <th scope="col" width="10%">Sr No.</th>
             <th scope="col" width="33%">Song Title</th>
             <th scope="col" width="34%">Author</th>
             <th scope="col" width="34%">Lyrics</th>
@@ -68,11 +71,10 @@
         @endif
         @foreach($songs as $key => $song)
         <tr>
-            <td style="font-size: 20px;">{{ ++$key }}</td>
             <td style="font-size: 20px;" >{{ $song->title }}</td>
             <td style="font-size: 20px;">{{ $song->author }}</td>
             <td style="font-size: 20px;">{{ $song->lyrics }}</td>
-            <td style="font-size: 20px;">{{ $song->created_at }}</td> 
+            <td style="font-size: 20px;">{{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}</td> 
         </tr>
         @endforeach
     </tbody>

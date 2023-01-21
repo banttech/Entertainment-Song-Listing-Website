@@ -5,6 +5,16 @@
             margin: 70px 0;
         }
 
+        .forget_pass_form {
+            width: 30%;
+        }
+
+        @media screen and (max-width: 900px) {
+            .forget_pass_form {
+                width: 80%;
+            }
+        }
+
         .forget_pass_sec .forget_pass_row {
             display: flex;
             align-items: center;
@@ -48,7 +58,7 @@
     </style>
     <div class="forget_pass_sec">
         <div class="forget_pass_row">
-            <div class="col-md-6">
+            <div class="col-md-12 forget_pass_form">
                 <div class="card">
                     <div class="card-header">{{ __('Reset Password') }}</div>
                     <div class="card-body">

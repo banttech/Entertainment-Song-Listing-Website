@@ -40,22 +40,76 @@ class SongController extends Controller
     public function create()
     {
         $pageTitle = 'Add Song';
-        return view('admin.songs.create', compact('pageTitle'));
+        $authors = DB::table('authors')->get();
+        $music_categories = DB::table('music_categories')->get();
+        return view('admin.songs.create', compact('pageTitle', 'authors', 'music_categories'));
+    }
+    public function copyCreate()
+    {
+        $pageTitle = 'Add Song';
+        return view('admin.songs.copyCreate', compact('pageTitle'));
     }
     public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'authors' => 'required',
+            'lyrics' => 'required',
+            'family_chords' => 'required',
+            'categories' => 'required',
+            'image' => 'required',
+            'seo_title' => 'required',
+            'seo_description' => 'required',
+        ]);
+
+        $image = null;
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('admin_assets/images/songs');
+            $image->move($destinationPath, $name);
+            $image = $name;
+        }
+
+        $songId = DB::table('songs')->insertGetId([
+            'title' => $request->title,
+            'lyrics' => $request->lyrics,
+            'slug' => strtolower(preg_replace('/\s+/', '-', $request->title)),
+            'family_chords' => $request->family_chords,
+            'image' => $image,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
+        ]);
+
+        foreach ($request->authors as $author) {
+            DB::table('song_has_authors')->insert([
+                'song_id' => $songId,
+                'author_id' => $author,
+            ]);
+        }
+        foreach ($request->categories as $category) {
+            DB::table('song_has_categories')->insert([
+                'song_id' => $songId,
+                'category_id' => $category,
+            ]);
+        }
+
+        return redirect()->route('songs.index')->with('success', 'Song added successfully.');
+    }
+    public function store_copy(Request $request)
     {
         // validate
         $request->validate([
             'title' => 'required',
             'author' => 'required',
-            'lyrics' => 'required',
+            'lyrics' => 'required'
         ]);
         // insert
         DB::table('songs')->insert([
             'title' => $request->title,
             'author' => $request->author,
             'lyrics' => $request->lyrics,
-            'slug' => strtolower(preg_replace('/\s+/', '-', $request->title)),
+            'slug' => strtolower(preg_replace('/\s+/', '-', $request->title))
         ]);
         // redirect
         return redirect()->route('songs.index')->with('success', 'Song added successfully.');
@@ -64,28 +118,65 @@ class SongController extends Controller
     {
         $song = DB::table('songs')->find($id);
         $pageTitle = 'Edit Song';
-        return view('admin.songs.edit', compact('song', 'pageTitle'));
+        $authors = DB::table('authors')->get();
+        $songAuthors = DB::table('song_has_authors')->where('song_id', $id)->pluck('author_id')->toArray();
+        $songCategories = DB::table('song_has_categories')->where('song_id', $id)->pluck('category_id')->toArray();
+        $music_categories = DB::table('music_categories')->get();
+        return view('admin.songs.edit', compact('song', 'pageTitle', 'authors', 'songAuthors', 'music_categories', 'songCategories'));
     }
     public function update(Request $request, $id)
     {
-        // validate
         $request->validate([
             'title' => 'required',
-            'author' => 'required',
+            'authors' => 'required',
             'lyrics' => 'required',
+            'family_chords' => 'required',
+            'categories' => 'required',
+            'seo_title' => 'required',
+            'seo_description' => 'required',
         ]);
-        // update
+
+        $song = DB::table('songs')->find($id);
+        $image = $song->image;
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('admin_assets/images/songs');
+            $image->move($destinationPath, $name);
+            $image = $name;
+        }
+
         DB::table('songs')->where('id', $id)->update([
             'title' => $request->title,
-            'author' => $request->author,
             'lyrics' => $request->lyrics,
+            'slug' => strtolower(preg_replace('/\s+/', '-', $request->title)),
+            'family_chords' => $request->family_chords,
+            'image' => $image,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
         ]);
-        // redirect
+
+        DB::table('song_has_authors')->where('song_id', $id)->delete();
+        DB::table('song_has_categories')->where('song_id', $id)->delete();
+        foreach ($request->authors as $author) {
+            DB::table('song_has_authors')->insert([
+                'song_id' => $id,
+                'author_id' => $author,
+            ]);
+        }
+        foreach ($request->categories as $category) {
+            DB::table('song_has_categories')->insert([
+                'song_id' => $id,
+                'category_id' => $category,
+            ]);
+        }
         return redirect()->route('songs.index')->with('success', 'Song updated successfully.');
     }
     public function delete($id)
     {
         DB::table('songs')->where('id', $id)->delete();
+        DB::table('song_has_authors')->where('song_id', $id)->delete();
+        DB::table('song_has_categories')->where('song_id', $id)->delete();
         return redirect()->route('songs.index')->with('success', 'Song deleted successfully.');
     }
 }

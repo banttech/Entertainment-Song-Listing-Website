@@ -1,6 +1,12 @@
 @extends('layouts.admin.app')
 
 @section('content')
+<style>
+    button.update_btn{
+        width: 170px !important;
+        border-radius: 10px !important;
+    }
+</style>
 <div class="white-bx">
     <h3 class="sub-heading">{{ $pageTitle }}</h3>
 
@@ -83,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn-area">Update</button>
+        <button type="submit" class="btn-area update_btn">Update</button>
     </form>
 </div>
 @endsection

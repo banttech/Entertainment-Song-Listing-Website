@@ -7,6 +7,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
     <title>{{ $pageTitle }}</title>
+    <?php if(isset($seoDescription)): ?>
+    <meta name="description" content="<?php echo $seoDescription; ?>">
+    <?php else: ?>
+    <meta name="description" content="SongCI">
+    <?php endif; ?>
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
             function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- //custom-theme -->
@@ -22,6 +27,9 @@
     <link
         href="//fonts.googleapis.com/css?family=Prompt:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,thai,vietnamese"
         rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 </head>
 
 </head>
@@ -41,7 +49,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <h1><a class="navbar-brand" href="{{ url('/') }}"><span
-                            style="color:#cc295c;">Sym</span><span>phony</span></a></h1>
+                            style="color:#f5b541;">Sym</span><span>phony</span></a></h1>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
@@ -110,28 +118,28 @@
                     laborum.</p>
                 <div class="agileits_footer_grid_gallery">
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/2.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/2.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/3.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/3.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/4.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/4.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/7.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/7.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/8.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/8.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="agileits_footer_grid_gallery1">
-                        <a href="#" data-toggle="modal" data-target="#myModal"><img src="images/9.jpg"
-                                alt=" " class="img-responsive" /></a>
+                        <a href="#" data-toggle="modal" data-target="#myModal"><img
+                                src="{{ '/' }}images/9.jpg" alt=" " class="img-responsive" /></a>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -167,8 +175,8 @@
     <!-- copy-right -->
     <div class="w3agile_copy_right">
         <div class="container">
-            <p>© 2022 Symphony. All Rights Reserved | Developed and Maintained by <a
-                    href="https://www.banttech.com/">Banttech</a></p>
+            <p>© 2022 Symphony. All Rights Reserved | Developed and Maintained by <a href="https://www.banttech.com/"
+                    target="_blank">Banttech</a></p>
         </div>
     </div>
     <!-- //copy-right -->

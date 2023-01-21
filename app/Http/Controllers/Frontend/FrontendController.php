@@ -24,7 +24,6 @@ class FrontendController extends Controller
      */
     public function index(Request $request)
     {
-        // add search functionality
         if(Auth::check()){
             return redirect()->route('userDashboard');
         }
@@ -34,17 +33,53 @@ class FrontendController extends Controller
             $author = $request->get('author');
             $title = $request->get('title');
             $songs = DB::table('songs')
+                ->join('song_has_authors', 'songs.id', '=', 'song_has_authors.song_id')
+                ->join('authors', 'song_has_authors.author_id', '=', 'authors.id')
+                ->select('songs.*', 'authors.name')
                 ->where('title', 'like', '%' . $search . '%')
-                ->orWhere('author', 'like', '%' . $search . '%')
-                ->orWhere('lyrics', 'like', '%' . $search . '%')
+                ->orWhere('authors.name', 'like', '%' . $search . '%')
                 ->latest()
-                ->paginate(10);
+                ->take(4)
+                ->get();
         } else {
-            $songs = DB::table('songs')->latest()->paginate(10);
+            $songs = DB::table('songs')->latest()->take(4)->get();
         }
-        return view('frontend.index', compact('songs','pageTitle'));
-        
+
+        $totalSongs = $songs->count();
+        $songAuthors = DB::table('authors')->get();
+        $musicCategories = DB::table('music_categories')->get();
+
+        return view('frontend.index', compact('songs','pageTitle', 'songAuthors', 'musicCategories', 'totalSongs'));
     }
+
+    public function loadMoreSongs(Request $request)
+    {
+        if(isset($request->search) && $request->search != ''){
+            $songs = DB::table('songs')
+                ->join('song_has_authors', 'songs.id', '=', 'song_has_authors.song_id')
+                ->join('authors', 'song_has_authors.author_id', '=', 'authors.id')
+                ->select('songs.*', 'authors.name')
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('authors.name', 'like', '%' . $request->search . '%')
+                ->latest()
+                ->take($request->songLength)
+                ->get();
+            $total = DB::table('songs')
+                ->join('song_has_authors', 'songs.id', '=', 'song_has_authors.song_id')
+                ->join('authors', 'song_has_authors.author_id', '=', 'authors.id')
+                ->select('songs.*', 'authors.name')
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('authors.name', 'like', '%' . $request->search . '%')
+                ->count();
+            $remainingSongs = $total - $request->songLength;
+        }else{
+            $songs = DB::table('songs')->latest()->take($request->songLength)->get();
+            $remainingSongs = DB::table('songs')->count() - $request->songLength;
+        }
+        $moreSongs = view('frontend.load_more_songs', compact('songs'))->render();
+        return response()->json(['moreSongs' => $moreSongs, 'remainingSongs' => $remainingSongs]);
+    }
+
     public function playlists()
     {
         if(!Auth::check()){
@@ -65,7 +100,7 @@ class FrontendController extends Controller
         $pageTitle = 'Playlist Details';
         $user = Auth::user();
         $playlist = DB::table('playlists')->where([['slug', $playlist_slug], ['user_id', $user->id]])->first();
-        $playlistSongs = DB::table('playlist_details')->where('playlist_id', $playlist->id)->get();
+        $playlistSongs = DB::table('playlist_details')->where('playlist_id', $playlist->id)->orderBy('song_order', 'ASC')->get();
         
         if(count($playlistSongs) == 0){
             return redirect()->route('playlist');
@@ -74,7 +109,9 @@ class FrontendController extends Controller
         foreach($playlistSongs as $playlistSong){
             $playlistIds[] = $playlistSong->song_id;
         }
-        $songs = DB::table('songs')->whereIN('id', $playlistIds)->latest()->paginate(1);
+
+        $songs = DB::table('songs')->whereIn('id', $playlistIds)->orderByRaw(DB::raw("FIELD(id, ".implode(',', $playlistIds).")"))->paginate(1);
+        // $songs = DB::table('songs')->whereIN('id', $playlistIds)->latest()->paginate(1);
 
         if(request()->ajax()) {
             return view('frontend.ajax_song_detail', compact('songs','playlist','playlist_slug'));
@@ -88,7 +125,7 @@ class FrontendController extends Controller
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        $pageTitle = 'Create Playlist';
+        $pageTitle = 'Playlist';
         $user = Auth::user();
         $songs = DB::table('songs')->latest()->get();
         return view('frontend.create_playlist', compact('pageTitle','user','songs'));
@@ -117,12 +154,16 @@ class FrontendController extends Controller
             'created_at' => now()
         ]);
 
-        foreach($request->songs as $song){
+        $songsList = explode(',', $request->song_ids);
+        $i = 1;
+        foreach($songsList as $song){
             DB::table('playlist_details')->insert([
                 'playlist_id' => $playlistId,
                 'song_id' => $song,
+                'song_order' => $i,
                 'created_at' => now()
             ]);
+            $i++;
         }
         return redirect()->route('playlists')->with('success', 'Playlist created successfully.');
     }
@@ -134,7 +175,7 @@ class FrontendController extends Controller
         $pageTitle = 'Playlist';
         $user = Auth::user();
         $playlist = DB::table('playlists')->where('id', $id)->first();
-        $playlistSongs = DB::table('playlist_details')->where('playlist_id', $id)->get();
+        $playlistSongs = DB::table('playlist_details')->where('playlist_id', $id)->orderBy('song_order', 'ASC')->get();
         $playlistIds = [];
         foreach($playlistSongs as $playlistSong){
             $playlistIds[] = $playlistSong->song_id;
@@ -159,12 +200,17 @@ class FrontendController extends Controller
             'updated_at' => now()
         ]);
         DB::table('playlist_details')->where('playlist_id', $id)->delete();
-        foreach($request->songs as $song){
+
+        $songsList = explode(',', $request->song_ids);
+        $i = 1;
+        foreach($songsList as $song){
             DB::table('playlist_details')->insert([
                 'playlist_id' => $id,
                 'song_id' => $song,
+                'song_order' => $i,
                 'created_at' => now()
             ]);
+            $i++;
         }
         return redirect()->route('playlists')->with('success', 'Playlist updated successfully.');
     }
@@ -231,15 +277,15 @@ class FrontendController extends Controller
         if(!Auth::check()){
             return redirect()->route('login');
         }
-        // update password if password field is not empty
         if ($request->password) {
             $request->validate([
                 'name' => 'required',
                 'email' => 'required|email',
-                'password' => 'required|min:6|confirmed',
+                'password' => 'required|min:6',
+                'confirm_password' => 'required|same:password',
             ], [
                 'password.min' => 'Password must be at least 6 characters long.',
-                'password.confirmed' => 'Passwords do not match.',
+                'confirm_password.same' => 'Password and confirm password must be same.',
             ]);
             $user = User::find(Auth::user()->id);
             $user->name = $request->name;
@@ -262,8 +308,89 @@ class FrontendController extends Controller
     public function songDetail($slug)
     {
         $song = DB::table('songs')->where('slug', $slug)->first();
+        $pageTitle = $song->seo_title;
+        $seoDescription = $song->seo_description;
+        return view('frontend.song-details', compact('song', 'pageTitle', 'seoDescription'));
+    }
+
+    public function updateSongSetting(Request $request)
+    {
+        if(isset($request->lyrics_size) && !empty($request->lyrics_size)){
+            $user = User::find(Auth::user()->id);
+            $user->lyrics_size = $request->lyrics_size;
+            $user->save();
+        }
+        if(isset($request->bg_color) && !empty($request->bg_color)){
+            $user = User::find(Auth::user()->id);
+            $user->bg_color = $request->bg_color;
+            $user->save();
+        }
+        if(isset($request->lyrics_color) && !empty($request->lyrics_color)){
+            $user = User::find(Auth::user()->id);
+            $user->lyrics_color = $request->lyrics_color;
+            $user->save();
+        }
+        if(isset($request->chords_color) && !empty($request->chords_color)){
+            $user = User::find(Auth::user()->id);
+            $user->chords_color = $request->chords_color;
+            $user->save();
+        }
+
+        return 'setting updated';
+    }
+
+    public function authorSongs($slug)
+    {
+        $author = DB::table('authors')->where('slug', $slug)->first();
+        $authorSong = DB::table('song_has_authors')->where('author_id', $author->id)->pluck('song_id');
+        $songs = DB::table('songs')->whereIn('id', $authorSong)->latest()->take(4)->get();
+        $totalSongs = DB::table('songs')->whereIn('id', $authorSong)->count();
+
+        $authorname = $author->name;
+        $pageTitle = $authorname . ' Songs';
+        return view('frontend.author-songs', compact('songs', 'pageTitle', 'authorname', 'totalSongs', 'slug'));
+    }
+
+    public function loadMoreAuthorSongs(Request $request, $slug){
+        $author = DB::table('authors')->where('slug', $slug)->first();
+        $authorSong = DB::table('song_has_authors')->where('author_id', $author->id)->pluck('song_id');
+        $songs = DB::table('songs')->whereIn('id', $authorSong)->latest()->take($request->songLength)->get();
+        $totalSongs = DB::table('songs')->whereIn('id', $authorSong)->count();
+        $remainingSongs = $totalSongs - $request->songLength;
+
+        $moreSongs = view('frontend.load_more_authors_songs', compact('songs'))->render();
+        return response()->json(['moreSongs' => $moreSongs, 'remainingSongs' => $remainingSongs]);
+    }
+
+    public function categorySongs($slug)
+    {
+        $category = DB::table('music_categories')->where('slug', $slug)->first();
+        $categorySong = DB::table('song_has_categories')->where('category_id', $category->id)->pluck('song_id');
+        $songs = DB::table('songs')->whereIn('id', $categorySong)->latest()->take(4)->get();
+        $totalSongs = DB::table('songs')->whereIn('id', $categorySong)->count();
+
+        $categoryname = $category->name;
+        $pageTitle = $categoryname . ' Songs';
+        return view('frontend.category-songs', compact('songs', 'pageTitle', 'categoryname', 'totalSongs', 'slug'));
+    }
+
+    public function loadMoreCategorySongs(Request $request, $slug){
+        $category = DB::table('music_categories')->where('slug', $slug)->first();
+        $categorySong = DB::table('song_has_categories')->where('category_id', $category->id)->pluck('song_id');
+        $songs = DB::table('songs')->whereIn('id', $categorySong)->latest()->take($request->songLength)->get();
+        $totalSongs = DB::table('songs')->whereIn('id', $categorySong)->count();
+        $remainingSongs = $totalSongs - $request->songLength;
+
+        $moreSongs = view('frontend.load_more_cat_songs', compact('songs'))->render();
+        return response()->json(['moreSongs' => $moreSongs, 'remainingSongs' => $remainingSongs]);
+
+    }
+
+    public function newSongDetail($slug)
+    {
+        $song = DB::table('songs')->where('slug', $slug)->first();
         $pageTitle = 'Song Details';
-        return view('frontend.song-details', compact('song', 'pageTitle'));
+        return view('frontend.new-song-details', compact('song', 'pageTitle'));
     }
     public function login()
     {
@@ -283,6 +410,10 @@ class FrontendController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
+            if(Auth::user()->is_ban == 1){
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'Your account has been banned. Please contact Site Admin.');
+            }
             if(Auth::user()->is_admin == 1){
                 Auth::logout();
                 return redirect()->route('login')->with('error', 'The username or password you entered is incorrect');

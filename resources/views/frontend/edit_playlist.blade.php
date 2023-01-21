@@ -176,6 +176,15 @@
             color: #555 !important;
 
         }
+
+        .songs_list {
+            height: 400px !important;
+        }
+
+        .songs_list option {
+            padding: 5px;
+            border-bottom: 1px solid #b9c2cb;
+        }
     </style>
     <div class="user-dashboard">
         <div class="container">
@@ -209,12 +218,13 @@
                                         <input type="text" name="title" class="form-control"
                                             placeholder="Playlist Title" value="{{ $playlist->title }}" required>
                                     </div>
-
+                                    <input type="hidden" name="song_ids" value="">
                                     <div class="input-group w3_w3layouts">
                                         <span>Songs List</span>
-                                        <select name="songs[]" class="form-control" multiple required>
+                                        <select name="songs[]" id="mySelect" class="form-control songs_list" multiple
+                                            required>
                                             <option value="" disabled
-                                                style="background-color: black;color: white;border-radius: 8px;">Select
+                                                style="background-color: #cc299e; color: white; padding: 5px;">Select
                                                 Songs to add into your Playlist</option>
                                             @foreach ($songs as $song)
                                                 <option value="{{ $song->id }}"
@@ -238,4 +248,48 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var selectedValues = [];
+        var select = document.getElementById("mySelect");
+        window.onload = function() {
+            let selectedSongs = <?php echo json_encode($playlistIds); ?>;
+            selectedValues = selectedSongs;
+            $('form input[name="song_ids"]').val(selectedSongs.join(','));
+        }
+
+        select.addEventListener("change", function() {
+            for (var i = 0; i < select.options.length; i++) {
+                var option = select.options[i];
+                // check if the option is selected
+                if (option.selected) {
+                    // check if the value is already in the array
+                    var index = selectedValues.indexOf(option.value);
+                    // if the value is not in the array
+                    if (index === -1) {
+                        // add it to the array
+                        selectedValues.push(option.value);
+                        selectFunction(option.value);
+                    }
+                } else {
+                    // check if the value is already in the array
+                    var index = selectedValues.indexOf(option.value);
+                    // if the value is in the array
+                    if (index !== -1) {
+                        // remove it from the array
+                        selectedValues.splice(index, 1);
+                        deselectFunction(option.value);
+                    }
+                }
+            }
+        });
+
+        function selectFunction(value) {
+            $('form input[name="song_ids"]').val(selectedValues.join(','));
+        }
+
+        function deselectFunction(value) {
+            $('form input[name="song_ids"]').val(selectedValues.join(','));
+        }
+    </script>
 @endsection

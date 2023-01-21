@@ -5,7 +5,7 @@
     }
 
     .active a {
-        color: red !important;
+        color: #f5b541 !important;
     }
 </style>
 <div class="col-md-4">

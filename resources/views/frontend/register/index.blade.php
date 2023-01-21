@@ -1,7 +1,24 @@
 @extends('layouts.frontend.app')
 @section('content')
+<style>
+    
+        .register_form{
+            width:30%;
+        }
+  
+        @media screen and (max-width: 900px) {
+            .register_form{
+                width:80%;
+            }
+           
+        }
+         
+        
+            
+        
+    </style>
 <div class="latest-albums">
-    <div class="container">
+    <div class="container register_form">
         <h3 class="bars">Register</h3>
         <form method="POST" action="{{ route('user.signup') }}">
             @if (session('error'))

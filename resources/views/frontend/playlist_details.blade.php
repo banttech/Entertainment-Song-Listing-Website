@@ -239,9 +239,27 @@
         .pagination_arrow {
             margin-top: 10px;
         }
+
+        #divContent {
+            text-align: left !important;
+        }
+
+        #controls {
+            position: fixed;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        pre {
+            text-align: center !important;
+            margin: 0 auto !important;
+        }
     </style>
+    <link rel="stylesheet" type="text/css" href="https://jquery-chord-transposer.vercel.app/jquery.transposer.css" />
     <div class="song-detail">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="song-detail-bx">

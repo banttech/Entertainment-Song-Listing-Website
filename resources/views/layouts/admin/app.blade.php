@@ -45,24 +45,58 @@
     .alert-success {
         width: 50%;
     }
+
+    .name_logo {
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20px;
+        font-weight: 600;
+    }
+
+    /* .navbar-brand:after {
+        content: '';
+        background: url(../images/1.png) no-repeat 0px 0px;
+        width: 40px;
+        height: 94px;
+        position: absolute;
+        transform: rotate(35deg);
+        -webkit-transform: rotate(35deg);
+        -moz-transform: rotate(35deg);
+        -o-transform: rotate(35deg);
+        -ms-transform: rotate(35deg);
+    }
+
+    .navbar-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    } */
 </style>
 
 <body class="app sidebar-mini">
     <!-- Navbar-->
     <header class="app-header">
-        <a class="app-header__logo" href="index.html"><img src="..." alt="no image" /></a>
+        <a class="navbar-brand name_logo" href="{{ route('songs.index') }}"><span
+                style="color:#cc295c;">Sym</span><span>phony</span></a>
+
+        {{-- <div class="navbar-header navbar-left">
+            <a class="navbar-brand" href="https://songcl.banttechenergies.com">
+                <span style="color:#cc295c;">Sym</span><span>phony</span>
+            </a>
+        </div> --}}
+
         <!-- Sidebar toggle button--><a class="app-sidebar__toggle mob-view" href="#" data-toggle="sidebar"
             aria-label="Hide Sidebar"></a>
         <!-- Navbar Right Menu-->
         <ul class="app-nav">
             <!-- User Menu-->
             <li class="dropdown">
-                <a class="top-btn" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><img
-                        src="images/user-icon.svg" alt="" />Admin</a>
+                <a class="top-btn" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">Admin</a>
                 <ul class="dropdown-menu settings-menu dropdown-menu-right">
 
-                    <li><a class="dropdown-item" href="{{ route('user.logout') }}"><img src="images/user-pk.svg"
-                                alt="" /> Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -75,6 +109,21 @@
             <li><a class="app-menu__item @if (isset($pageTitle) && $pageTitle === 'Manage Songs') active @endif"
                     href="{{ route('songs.index') }}"><img src="images/ic1.svg" alt=""> <span
                         class="app-menu__label">Songs</span></a></li>
+            <li><a class="app-menu__item @if (isset($pageTitle) && $pageTitle === 'Manage Users') active @endif"
+                    href="{{ route('users.index') }}"><img src="images/ic1.svg" alt=""> <span
+                        class="app-menu__label">Users</span>
+                </a>
+            </li>
+            <li><a class="app-menu__item @if (isset($pageTitle) && $pageTitle === 'Manage Authors') active @endif"
+                    href="{{ route('authors.index') }}"><img src="images/ic1.svg" alt=""> <span
+                        class="app-menu__label">Authors</span>
+                </a>
+            </li>
+            <li><a class="app-menu__item @if (isset($pageTitle) && $pageTitle === 'Manage Music Category') active @endif"
+                    href="{{ route('music-categories.index') }}"><img src="images/ic1.svg" alt=""> <span
+                        class="app-menu__label">Music Category</span>
+                </a>
+            </li>
             <li><a class="app-menu__item @if (isset($pageTitle) && $pageTitle === 'Edit Profile') active @endif"
                     href="{{ route('profile.edit') }}"><img src="images/ic1.svg" alt=""> <span
                         class="app-menu__label">Profile</span></a></li>

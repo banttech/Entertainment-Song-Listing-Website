@@ -120,7 +120,7 @@
         }
 
         .user-dashboard-left-bottom ul li a:hover {
-            color: #ff0000;
+            color: #f5b541;
         }
 
         .user-dashboard-right-bottom-bx-bottom-bx {
@@ -176,6 +176,10 @@
             color: #555 !important;
 
         }
+
+        button.close {
+            font-size: 1.5rem;
+        }
     </style>
     <div class="user-dashboard">
         <div class="container">
@@ -185,48 +189,60 @@
                         <div class="row">
                             @include('frontend.dashboard-nav')
                             <div class="col-md-8">
-                            <h3>Profile</h3>
-                            <br>
-                            <form method="POST" action="{{ route('update-profile') }}">
-                                @if (session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                                @endif
-                                @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                @endif
-                                @csrf
-                                <div class="input-group w3_w3layouts">
-                                    <span class="input-group-addon" id="basic-addon1">@</span>
-                                    <input name= "name" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1" value="{{ $user->name }}" required>
-                                </div>
-                                <div class="input-group w3_w3layouts">
-                                    <span class="input-group-addon" id="basic-addon1">@</span>
-                                    <input name= "email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon1" value="{{ $user->email }}" required>
-                                </div>
-                                <div class="input-group w3_w3layouts">
-                                    <span class="input-group-addon" id="basic-addon1">@</span>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" aria-describedby="basic-addon1" required>
-                                </div>
-                                <div class="input-group w3_w3layouts">
-                                    <span class="input-group-addon" id="basic-addon1">@</span>
-                                    <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" aria-describedby="basic-addon1" required>
-                                </div>
-                                <div class="input-group w3_w3layouts">
-                                <h3>
-                                    <button type="submit" class="label label-primary">
-                                        Update
-                                    </button>
-                                    </h3>
-                                </div>
-                            </form>
+                                <h3>Profile</h3>
+                                <br>
+                                <form method="POST" action="{{ route('update-profile') }}">
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
+                                    @if (session('success'))
+                                        <div class="alert alert-success">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @csrf
+                                    <div class="input-group w3_w3layouts">
+                                        <span class="input-group-addon" id="basic-addon1">@</span>
+                                        <input name="name" type="text" class="form-control" placeholder="Name"
+                                            aria-describedby="basic-addon1" value="{{ $user->name }}" required>
+                                    </div>
+                                    <div class="input-group w3_w3layouts">
+                                        <span class="input-group-addon" id="basic-addon1">@</span>
+                                        <input name="email" type="email" class="form-control" placeholder="Email"
+                                            aria-describedby="basic-addon1" value="{{ $user->email }}" required>
+                                    </div>
+                                    <div class="input-group w3_w3layouts">
+                                        <span class="input-group-addon" id="basic-addon1">@</span>
+                                        <input type="password" name="password" class="form-control"
+                                            placeholder="New password" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <div class="input-group w3_w3layouts">
+                                        <span class="input-group-addon" id="basic-addon1">@</span>
+                                        <input type="password" name="confirm_password" class="form-control"
+                                            placeholder="Confirm new password" aria-describedby="basic-addon1" required>
+                                    </div>
+                                    <div class="input-group w3_w3layouts">
+                                        <h3>
+                                            <button type="submit" class="label label-primary">
+                                                Update
+                                            </button>
+                                        </h3>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

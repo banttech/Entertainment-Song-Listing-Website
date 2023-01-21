@@ -198,10 +198,9 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Sr. No.</th>
                                                         <th>Playlist Title</th>
                                                         <th>Created At</th>
-                                                        <th rowspan="1">Action</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -213,13 +212,13 @@
                                                     @endif
                                                     @foreach ($playlists as $playlist)
                                                         <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $playlist->title }}</td>
+                                                            <td>
+                                                                <a href="{{ route('showPlaylist', $playlist->slug) }}">{{ $playlist->title }}
+                                                                </a>
+                                                            </td>
                                                             <td>{{ Carbon\Carbon::parse($playlist->created_at)->format('M d, Y') }}
                                                             </td>
                                                             <td>
-                                                                <a href="{{ route('showPlaylist', $playlist->slug) }}"
-                                                                    class="btn btn-primary">View</a>
                                                                 <a href="{{ route('editPlaylist', $playlist->id) }}"
                                                                     class="btn btn-primary">Edit</a>
                                                                 <form action="{{ route('deletePlaylist', $playlist->id) }}"

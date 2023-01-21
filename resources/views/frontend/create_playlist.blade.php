@@ -214,16 +214,18 @@
                                         <input type="text" name="title" class="form-control"
                                             placeholder="Playlist Title" required value="{{ old('title') }}">
                                     </div>
-
+                                    <input type="hidden" name="song_ids" value="">
                                     <div class="input-group w3_w3layouts">
                                         <span>Songs List</span>
-
-                                        <select name="songs[]" class="form-control songs_list" multiple required>
+                                        <select name="songs[]" id="mySelect" class="form-control songs_list" multiple
+                                            required>
                                             <option value="" disabled
                                                 style="background-color: #cc299e; color: white; padding: 5px;">Select
                                                 Songs to add into your Playlist</option>
                                             @foreach ($songs as $song)
-                                                <option value="{{ $song->id }}">{{ $song->title }}</option>
+                                                <option value="{{ $song->id }}">
+                                                    {{ $song->title }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -242,4 +244,43 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var selectedValues = [];
+        var select = document.getElementById("mySelect");
+
+        select.addEventListener("change", function() {
+            for (var i = 0; i < select.options.length; i++) {
+                var option = select.options[i];
+                // check if the option is selected
+                if (option.selected) {
+                    // check if the value is already in the array
+                    var index = selectedValues.indexOf(option.value);
+                    // if the value is not in the array
+                    if (index === -1) {
+                        // add it to the array
+                        selectedValues.push(option.value);
+                        selectFunction(option.value);
+                    }
+                } else {
+                    // check if the value is already in the array
+                    var index = selectedValues.indexOf(option.value);
+                    // if the value is in the array
+                    if (index !== -1) {
+                        // remove it from the array
+                        selectedValues.splice(index, 1);
+                        deselectFunction(option.value);
+                    }
+                }
+            }
+        });
+
+        function selectFunction(value) {
+            $('form input[name="song_ids"]').val(selectedValues.join(','));
+        }
+
+        function deselectFunction(value) {
+            $('form input[name="song_ids"]').val(selectedValues.join(','));
+        }
+    </script>
 @endsection
