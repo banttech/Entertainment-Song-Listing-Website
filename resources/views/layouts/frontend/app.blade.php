@@ -48,8 +48,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <h1><a class="navbar-brand" href="{{ url('/') }}"><span
-                            style="color:#f5b541;">Sym</span><span>phony</span></a></h1>
+                {{-- <h1><a class="navbar-brand" href="{{ url('/') }}"><span
+                            style="color:#f5b541;">Sym</span><span>phony</span></a></h1> --}}
+                <a href="/"><img src="{{ '/' }}admin_assets/images/songcl_logo.png"
+                        alt=" "style="width:100px; height: 60px;" /></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
