@@ -78,14 +78,13 @@
 <body class="app sidebar-mini">
     <!-- Navbar-->
     <header class="app-header">
-        <a class="navbar-brand name_logo" href="{{ route('songs.index') }}"><span
-                style="color:#cc295c;">Sym</span><span>phony</span></a>
-
-        {{-- <div class="navbar-header navbar-left">
-            <a class="navbar-brand" href="https://songcl.banttechenergies.com">
-                <span style="color:#cc295c;">Sym</span><span>phony</span>
-            </a>
-        </div> --}}
+        <?php
+        $homeLogo = DB::table('home_logo')->first();
+        ?>
+        <a href="" class="name_logo">
+            <img src="{{ url('admin_assets/images/' . $homeLogo->image) }}"
+                alt=" "style="width:100px; height: 60px;" />
+        </a>
 
         <!-- Sidebar toggle button--><a class="app-sidebar__toggle mob-view" href="#" data-toggle="sidebar"
             aria-label="Hide Sidebar"></a>

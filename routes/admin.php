@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ModelController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\MusicCategoryController;
-
+use App\Http\Controllers\Admin\SiteSettingController;
 
 
 Route::get('/admin', [LoginController::class, 'index'])->name('index');
@@ -102,5 +102,8 @@ Route::group(['prefix' => 'admin','as','admin.','namespace' => 'Admin','middlewa
     Route::group(['prefix' => 'add-year', 'as' => 'make.'], function () {
         Route::get('/', [YearController::class, 'year'])->name('index');
     });
+
+    Route::get('update-logo', [SiteSettingController::class, 'logo'])->name('update-logo');
+    Route::post('update-logo', [SiteSettingController::class, 'updatelogo'])->name('update-logo');
    
 });
