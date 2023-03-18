@@ -17,7 +17,7 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = DB::table('songs')->latest()->paginate(10);
+        $songs = DB::table('songs')->latest()->paginate(100);
         $pageTitle = 'Manage Songs';
         return view('admin.songs.index', compact('songs', 'pageTitle'));
     }
@@ -179,4 +179,29 @@ class SongController extends Controller
         DB::table('song_has_categories')->where('song_id', $id)->delete();
         return redirect()->route('songs.index')->with('success', 'Song deleted successfully.');
     }
+
+    public function logo(){
+              
+        return view('admin.site-settings.update-logo');
+    }
+   
+    public function updatelogo(Request $request){
+
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+           
+        ]);
+        
+        $filename = "banttechlogo.png";
+        
+        $request->file('image')->storeAs('public/admin_assets/images',$filename);
+        
+        
+        return view('admin.site-settings.update-logo');
+    }
+
 }
+
+
+
+

@@ -41,8 +41,9 @@
         }
 
         .author_row_style {
-            margin-left: 15px;
-            margin-right: 15px;
+            margin-left: 45px;
+            margin-right: 45px;
+            margin-top: 30px;
         }
 
         .authors_list .author__name {
@@ -102,7 +103,7 @@
             padding: 5px;
             height: 220px;
             width: 90%;
-            margin-left:-10px;
+            margin-left: -10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             background: #738f91;
             border-radius: 10px;
@@ -185,6 +186,20 @@
             background-color: #f5b541;
             border-color: #f5b541;
             color: #fff !important;
+        }
+
+        .table-dark {
+            background-color: #000;
+        }
+
+        .table-dark .thead-dark th {
+            background-color: #1F1F1F;
+            border: none;
+            color: #A99C86;
+        }
+
+        .table-dark tbody td {
+            border-bottom: 2px solid #1F1F1F;
         }
     </style>
     <br>
@@ -311,70 +326,46 @@
         </div>
         @if ($songs->count() > 0)
             <div class="row author_row_style" id="load-more-songs">
-                @foreach ($songs as $song)
-                    <div class="col-md-3 col-sm-4 hover_effect w3ls_banner_bottom_grid authors_list author_list_style">
-                        <img class="author__img" src="{{ url('admin_assets/images/songs/' . $song->image) }}"
-                            alt="" class="img-responsive" style="border-radius:5px;" />
-                        <div class="overlay_songs">
-                            <div class="Song_box_shadow">
-                                <div style="line-height: 19px; height: 34px;">
-                                    <a style="color: #f5b541;" class="Song-Content"
-                                        href="{{ route('songDetail', $song->slug) }}">
-                                        {{ strlen($song->title) > 45 ? substr($song->title, 0, 45) . '...' : $song->title }}
-                                    </a>
-                                </div>
-                                <div class="Show_contant_val">
-                                    <span style="color: #f5b541;">Categories:</span>
-                                    <?php $catIds = DB::table('song_has_categories')
-                                        ->where('song_id', $song->id)
-                                        ->pluck('category_id');
-                                    $categories = DB::table('music_categories')
-                                        ->whereIn('id', $catIds)
-                                        ->get();
-                                    ?>
-                                    <span>
-                                        @foreach ($categories as $key => $category)
-                                            <a href="{{ route('categorySongs', $category->slug) }}"
-                                                style="font-size: 12px;">
-                                                {{ $category->name }}<?php if ($key != count($categories) - 1) {
-                                                    echo ',';
-                                                } ?>
-                                            </a>
-                                        @endforeach
-                                    </span>
-                                </div>
-                                <div class="song_listing_name">
-                                    <span class="Song_by">Authors:</span>
-                                    <?php
-                                    $author_ids = DB::table('song_has_authors')
+
+                <table class="table table-dark mt-5">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ARTIST</th>
+                            <th>SONG</th>
+                            <th>DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($songs as $song)
+                            <tr>
+                                <td>
+                                    <?php $author_ids = DB::table('song_has_authors')
                                         ->where('song_id', $song->id)
                                         ->pluck('author_id');
                                     $authors = DB::table('authors')
                                         ->whereIn('id', $author_ids)
                                         ->get();
                                     ?>
-                                    <span>
-                                        @foreach ($authors as $key => $author)
-                                            <a href="{{ route('authorSongs', $author->slug) }}" style="font-size: 12px;">
-                                                {{ $author->name }}<?php if ($key != count($authors) - 1) {
-                                                    echo ',';
-                                                } ?>
-                                            </a>
-                                        @endforeach
-                                    </span>
-                                </div>
-                                <div class="song_posted_sec">
-                                    <span class="Song_by">Posted On:</span>
-                                    <a style="font-size: 12px; font-weight: 600;">
-                                        {{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}
+                                    @foreach ($authors as $key => $author)
+                                        <a href="{{ route('authorSongs', $author->slug) }}" style="color: #D2CFD1;">
+                                            {{ $author->name }} </a>
+                                        @if ($key != count($authors) - 1)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <a href="{{ route('songDetail', $song->slug) }}" style="color: #CDAC33">
+                                        {{ $song->title }}
                                     </a>
-                                    {{-- <span
-                                        style="color: #fff; font-size: 13px;">{{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                                </td>
+                                <td style="color: #655F5A;">{{ Carbon\Carbon::parse($song->created_at)->format('M d, Y') }}
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
             </div>
         @else
             <div class="row" style="margin: 64px 0 26px 0; text-align: center;">
@@ -383,7 +374,7 @@
                 </div>
             </div>
         @endif
-        <div class="row load_more_songs @if ($totalSongs < 4) hidden @endif" id="load_more_button_sec">
+        <div class="row load_more_songs @if ($totalSongs < 15) hidden @endif" id="load_more_button_sec">
             <div class="col-md-12">
                 <div class="load_more_btn">
                     <button class="btn " onclick="loadMoreSongs()">Load More</button>
@@ -627,10 +618,10 @@
     </div> --}}
 
     <script>
-        var songLength = 4;
+        var songLength = 14;
 
         function loadMoreSongs() {
-            songLength += 4;
+            songLength += 15;
             let csrf_token = "{{ csrf_token() }}";
             let search = $('#search').val();
             console.log(search);

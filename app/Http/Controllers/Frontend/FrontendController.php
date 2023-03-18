@@ -38,11 +38,12 @@ class FrontendController extends Controller
                 ->select('songs.*', 'authors.name')
                 ->where('title', 'like', '%' . $search . '%')
                 ->orWhere('authors.name', 'like', '%' . $search . '%')
+                ->orWhere('lyrics', 'like', '%' . $search . '%')
                 ->latest()
-                ->take(4)
+                ->take(15)
                 ->get();
         } else {
-            $songs = DB::table('songs')->latest()->take(4)->get();
+            $songs = DB::table('songs')->latest()->take(15)->get();
         }
 
         $totalSongs = $songs->count();
@@ -61,6 +62,7 @@ class FrontendController extends Controller
                 ->select('songs.*', 'authors.name')
                 ->where('title', 'like', '%' . $request->search . '%')
                 ->orWhere('authors.name', 'like', '%' . $request->search . '%')
+                ->orWhere('lyrics', 'like', '%' . $request->search . '%')
                 ->latest()
                 ->take($request->songLength)
                 ->get();
@@ -70,6 +72,7 @@ class FrontendController extends Controller
                 ->select('songs.*', 'authors.name')
                 ->where('title', 'like', '%' . $request->search . '%')
                 ->orWhere('authors.name', 'like', '%' . $request->search . '%')
+                ->orWhere('lyrics', 'like', '%' . $request->search . '%')
                 ->count();
             $remainingSongs = $total - $request->songLength;
         }else{
