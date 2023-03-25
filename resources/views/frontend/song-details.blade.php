@@ -166,7 +166,10 @@
         }
 
         .song_btn {
-            margin-top: 15px
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .song_btn ul {
@@ -299,8 +302,8 @@
         }
 
         /* #lyrics {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        font-size: 11px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        font-size: 11px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
 
 
         pre#lyrics {
@@ -327,6 +330,53 @@
         .song__detail__sec {
             margin-left: 0px !important;
             margin-right: 0px !important;
+        }
+
+        @media screen and (max-width: 990px) {
+            .song_btn {
+                background: #000;
+            }
+
+            .song_btn div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .song_btn div .speed {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .song_btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .song_btn div .speed {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .song_btn div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .song_btn div .speed {
+                display: none;
+            }
         }
 
         @media screen and (max-width: 600px) and (min-width: 401px) {
@@ -440,13 +490,16 @@
                                 </div>
                                 <div class="song_btn">
                                     <div class="col-md-4 text-center btn__styles">
-                                        <h4>AUTO SCROLL</h4>
-                                        <p>Speed</p>
-
-                                        <ul>
-                                            <li><span id="increase_scroll_speed"><i class="fa fa-plus"></i></span></li>
-                                            <li><span id="decrease_scroll_speed"><i class="fa fa-minus"></i></span></li>
-                                        </ul>
+                                        <div>
+                                            <h4>AUTO SCROLL</h4>
+                                            <p class="speed">Speed</p>
+                                        </div>
+                                        <div>
+                                            <ul>
+                                                <li><span id="increase_scroll_speed"><i class="fa fa-plus"></i></span></li>
+                                                <li><span id="decrease_scroll_speed"><i class="fa fa-minus"></i></span></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="col-md-4 text-center btn__styles">
                                         <h4>FONT SIZE</h4>

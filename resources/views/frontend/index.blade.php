@@ -180,6 +180,7 @@
         .load_more_songs {
             text-align: center;
             margin-top: 30px;
+            margin-bottom: 30px;
         }
 
         .load_more_btn button {
@@ -384,7 +385,7 @@
     </div>
 
     <!-- banner-bottom -->
-    <div class="banner-bottom">
+    {{-- <div class="banner-bottom">
         <div class="container music_cat_sec">
             <h3 class="agileits_w3layouts_head"><span>Music Categories</span></h3>
         </div>
@@ -408,7 +409,7 @@
             </div>
         @endforeach
         <div class="clearfix"></div>
-    </div>
+    </div> --}}
     <!-- //banner-bottom -->
 
     <!-- about -->
@@ -479,7 +480,7 @@
 
 
 
-    <div class="latest-albums">
+    {{-- <div class="latest-albums">
         <div class="container">
             <h3 class="agileits_w3layouts_head"><span>Our Authors</span></h3>
         </div>
@@ -499,7 +500,7 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- team -->
     {{-- <div class="team">
