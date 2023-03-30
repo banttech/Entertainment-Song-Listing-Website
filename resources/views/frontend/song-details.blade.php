@@ -302,8 +302,8 @@
         }
 
         /* #lyrics {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        font-size: 11px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                font-size: 11px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            } */
 
 
         pre#lyrics {
@@ -325,6 +325,7 @@
         pre {
             text-align: center !important;
             margin: 0 auto !important;
+            overflow: initial;
         }
 
         .song__detail__sec {
@@ -480,13 +481,12 @@
                                     ?>
 
                                     <div id="myDiv" class="song_detail div_content"
-                                        style="background-color: {{ $bgColor }};">
+                                        style="background-color: {{ $bgColor }}; overflow-x: auto;">
                                         <pre data-key="{{ isset($song->family_chords) ? $song->family_chords : null }}" id="lyrics"
-                                            style="font-size: {{ $lyricsSize }}px; background-color: {{ $bgColor }}; color: {{ $lyricsColor }};">
+                                            style="font-size: {{ $lyricsSize }}px; background-color: {{ $bgColor }}; color: {{ $lyricsColor }}; white-space: pre;">
                                                 {{ isset($song->lyrics) ? $song->lyrics : null }}
                                         </pre>
                                     </div>
-
                                 </div>
                                 <div class="song_btn">
                                     <div class="col-md-4 text-center btn__styles">
